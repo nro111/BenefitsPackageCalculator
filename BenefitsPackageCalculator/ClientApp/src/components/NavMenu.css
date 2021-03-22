@@ -1,0 +1,35 @@
+﻿a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+html {
+    font-size: 14px;
+    font-family: sofia-pro,sans-serif;
+    background-color: #FFFFFF;
+}
+
+.header {
+    max-width: 100%;
+    text-align: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    background-color:#FFFFFF;
+}
+
+.headertext {
+    font-family: sofia-pro,sans-serif;
+    font-weight: 900;
+    color: #383E48;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
