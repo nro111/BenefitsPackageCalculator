@@ -8,18 +8,30 @@ namespace BenefitsPackageCalculator.Core
     {
         public double GetTotalCost(BenefitRecipient employee)
         {
-            var totalBenefitCost = employee.FirstName.ToLower().StartsWith('a') ?
-                1000.00 - (1000.00 * .10) :
-                1000.00;
-            for(var i = 0; i < employee.Dependents.Count; i++)
+            if(string.IsNullOrEmpty(employee.FirstName) || string.IsNullOrEmpty(employee.LastName))
             {
-                var dependent = employee.Dependents.ElementAt(i);
-                var dependentBenefitCost = dependent.FirstName.ToLower().StartsWith('a') ?
-                500.00 - (500.00 * .10) :
-                500.00;
-                totalBenefitCost += dependentBenefitCost;
+                return 0.0;
             }
+
+            var totalBenefitCost = GetCostForRecipient(employee, 1000.00);
+
+            if (employee.Dependents == null)
+            {
+                return totalBenefitCost;
+            }
+
+            for (var i = 0; i < employee.Dependents.Count; i++)
+            {
+                totalBenefitCost += GetCostForRecipient(employee.Dependents.ElementAt(i), 500.00);
+            }
+
             return totalBenefitCost;
         } 
+        private double GetCostForRecipient(BenefitRecipient benefitRecipient, double startingCost)
+        {
+            return benefitRecipient.FirstName.ToLower().StartsWith('a') ?
+                startingCost - (startingCost * .10) :
+                startingCost;
+        }
     }
 }

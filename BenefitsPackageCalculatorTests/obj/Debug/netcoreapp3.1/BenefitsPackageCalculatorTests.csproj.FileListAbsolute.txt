@@ -94,3 +94,5 @@ C:\Users\normsby\source\repos\BenefitsPackageCalculator\BenefitsPackageCalculato
 C:\Users\normsby\source\repos\BenefitsPackageCalculator\BenefitsPackageCalculatorTests\obj\Debug\netcoreapp3.1\BenefitsPackageCalculatorTests.dll
 C:\Users\normsby\source\repos\BenefitsPackageCalculator\BenefitsPackageCalculatorTests\obj\Debug\netcoreapp3.1\BenefitsPackageCalculatorTests.pdb
 C:\Users\normsby\source\repos\BenefitsPackageCalculator\BenefitsPackageCalculatorTests\obj\Debug\netcoreapp3.1\BenefitsPackageCalculatorTests.genruntimeconfig.cache
+C:\Source\BenefitsPackageCalculator\BenefitsPackageCalculatorTests\obj\Debug\netcoreapp3.1\BenefitsPackageCalculatorTests.dll
+C:\Source\BenefitsPackageCalculator\BenefitsPackageCalculatorTests\obj\Debug\netcoreapp3.1\BenefitsPackageCalculatorTests.pdb
