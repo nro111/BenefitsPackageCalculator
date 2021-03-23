@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Label, FormGroup, Input, ButtonToggle } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
 export class NewDependentForm extends Component {
@@ -12,41 +11,27 @@ export class NewDependentForm extends Component {
         this.state = {            
             dependentFirstName: '',
             dependentLastName: '',
-            benefitCost: 0.0,
-            isDirty: false
+            benefitCost: 0.0
         };
     }
 
-    //saveDependent = (i) => {
-    //    let dependent = {
-    //        FirstName: this.state.dependentFirstName,
-    //        LastName: this.state.dependentLastName,
-    //        TotalCost: 0.0,
-    //        Dependents: []
-    //    }
-    //    let oldDependentsArray = this.state.dependentsArray;
-    //    oldDependentsArray.push(dependent);
-    //    this.setState({
-    //        dependentsArray: oldDependentsArray,
-    //        isDirty: false
-    //    })
-    //}
+    saveDependent = (i) => {
+        this.props.saveCallback(i, this.state.dependentFirstName, this.state.dependentLastName);
+    }
 
     removeDependent = (i) => {
-        this.props.parentCallback(i);
+        this.props.deleteCallback(i);
     }
 
     setDependentFirstName = (e) => {
         this.setState({
-            dependentFirstName: e.target.value,
-            isDirty: true
+            dependentFirstName: e.target.value
         })
     }
 
     setDependentLastName = (e) => {
         this.setState({
-            dependentLastName: e.target.value,
-            isDirty: true
+            dependentLastName: e.target.value
         })
     }
 
@@ -64,7 +49,7 @@ export class NewDependentForm extends Component {
                     <Input type="text" name="lastName" id={"txtDependentLastName-" + i} onChange={(e) => this.setDependentLastName(e)} placeholder="Depenedent Last Name" />
                 </FormGroup>
                 <FormGroup>
-                    <ButtonToggle color="success" disabled={!this.state.isDirty} onClick={() => this.saveDependent(i)}>Save</ButtonToggle>{' '}
+                    <ButtonToggle color="success" onClick={() => this.saveDependent(i)}>Save</ButtonToggle>{' '}
                     <ButtonToggle color="danger" onClick={() => this.removeDependent(i)}>Remove Dependent</ButtonToggle>{' '}
                 </FormGroup>
             </div>

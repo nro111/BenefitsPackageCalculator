@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Col, ButtonToggle, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Container, ButtonToggle, Form, FormGroup, Label, Input } from 'reactstrap';
 import axios from 'axios'
 import './BenefitCalculatorForm.css';
 import { NewDependentForm } from './NewDependentForm';
@@ -21,7 +21,7 @@ export class BenefitCalculatorForm extends Component {
         };
     }
 
-    addDependent = (e) => {
+    addDependentHtml = (e) => {
         e.preventDefault();        
         let currentDependentCount = this.state.dependentHtmlArray.length + 1;   
         this.setState({
@@ -30,20 +30,41 @@ export class BenefitCalculatorForm extends Component {
         this.BuildDependentList();
     }
 
-    handleCallback = (i) => {
+    ElementToDelete = (i) => {
         let oldDependentsHtmlArray = this.state.dependentHtmlArray;
-        let filtered = oldDependentsHtmlArray.filter(function (htmlBlock) {
+        let oldDependentsArray = this.state.dependentsArray;
+        let filteredHtml = oldDependentsHtmlArray.filter(function (htmlBlock) {
             return htmlBlock.props.i !== i;
         });
+        let filteredDependents = oldDependentsArray.filter(function (dependent) {
+            return oldDependentsArray.indexOf(dependent) !== i;
+        });
         let currentCount = this.state.dependentHtmlArray.length;
-        this.setState({ dependentHtmlArray: filtered, dependentsCount: currentCount });
+        this.setState({ dependentHtmlArray: filteredHtml, dependentsCount: currentCount, dependentsArray: filteredDependents });
+    }
+
+    SaveDependent = (i, firstName, lastName) => {
+        let newDependent = {
+            FirstName: firstName,
+            LastName: lastName,
+            TotalCost: 0.0,
+            Dependents: []
+        }
+        let oldDependentsArray = this.state.dependentsArray;
+        if (oldDependentsArray[i]) {
+            oldDependentsArray[i] = newDependent;
+        }
+        else {
+            oldDependentsArray.push(newDependent);
+        }                
+        this.setState({ dependentsArray: oldDependentsArray });
     }
 
     BuildDependentList = () => {
         let list = [];
         for (let i = 0; i < this.state.dependentsCount; i++) {
             list.push(
-                <NewDependentForm i={i} parentCallback={this.handleCallback}/>
+                <NewDependentForm i={i} deleteCallback={this.ElementToDelete} saveCallback={this.SaveDependent} />
             );
         }
         this.setState({
@@ -102,7 +123,7 @@ export class BenefitCalculatorForm extends Component {
                         <Input type="text" name="cost" id="txtBenefitCost" readOnly value={ this.state.benefitCost } placeholder="Employee Benefit Cost" />
                     </FormGroup>                    
                     <FormGroup>
-                        <ButtonToggle color="success" onClick={this.addDependent}>Add Dependent</ButtonToggle>{' '}
+                        <ButtonToggle color="success" onClick={this.addDependentHtml}>Add Dependent</ButtonToggle>{' '}
                     </FormGroup>
                     {this.state.dependentHtmlArray}
                     <FormGroup>

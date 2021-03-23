@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Container } from 'reactstrap';
 import { BenefitCalculatorForm } from './BenefitCalculatorForm';
-import { TopBanner } from './NavMenu';
+import { TopBanner } from './TopBanner';
 
 export class Layout extends Component {
     static displayName = Layout.name;
