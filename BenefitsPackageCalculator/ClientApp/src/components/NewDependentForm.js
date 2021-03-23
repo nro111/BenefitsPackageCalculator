@@ -17,27 +17,23 @@ export class NewDependentForm extends Component {
         };
     }
 
-    saveDependent = (i) => {
-        let dependent = {
-            FirstName: this.state.dependentFirstName,
-            LastName: this.state.dependentLastName,
-            TotalCost: 0.0,
-            Dependents: []
-        }
-        let oldDependentsArray = this.state.dependentsArray;
-        oldDependentsArray.push(dependent);
-        this.setState({
-            dependentsArray: oldDependentsArray,
-            isDirty: false
-        })
-    }
+    //saveDependent = (i) => {
+    //    let dependent = {
+    //        FirstName: this.state.dependentFirstName,
+    //        LastName: this.state.dependentLastName,
+    //        TotalCost: 0.0,
+    //        Dependents: []
+    //    }
+    //    let oldDependentsArray = this.state.dependentsArray;
+    //    oldDependentsArray.push(dependent);
+    //    this.setState({
+    //        dependentsArray: oldDependentsArray,
+    //        isDirty: false
+    //    })
+    //}
 
     removeDependent = (i) => {
-        let oldDependentsHtmlArray = this.props.dependentHtmlArray;
-        oldDependentsHtmlArray.splice(i, 1);
-        let oldDependentsArray = this.props.dependentArray;
-        oldDependentsArray.splice(i, 1);
-        this.setState({ dependentHtmlArray: oldDependentsHtmlArray, dependentsArray: oldDependentsArray });
+        this.props.parentCallback(i);
     }
 
     setDependentFirstName = (e) => {
@@ -55,20 +51,21 @@ export class NewDependentForm extends Component {
     }
 
     render() {
+        let i = this.props.i;
         return (
-            <div id={this.props.i}>
-                <Label>Dependent #{this.props.i + 1}</Label>
+            <div id={i}>
+                <Label>Dependent #{i + 1}</Label>
                 <FormGroup>
                     <Label for="txtFirstName">First Name</Label>
-                    <Input type="text" name="firstName" id={"txtDependentFirstName-" + this.props.i} onChange={(e) => this.setDependentFirstName(e)} placeholder="Depenedent First Name" />
+                    <Input type="text" name="firstName" id={"txtDependentFirstName-" + i} onChange={(e) => this.setDependentFirstName(e)} placeholder="Depenedent First Name" />
                 </FormGroup>
                 <FormGroup>
                     <Label for="txtLastName">Last Name</Label>
-                    <Input type="text" name="lastName" id={"txtDependentLastName-" + this.props.i} onChange={(e) => this.setDependentLastName(e)} placeholder="Depenedent Last Name" />
+                    <Input type="text" name="lastName" id={"txtDependentLastName-" + i} onChange={(e) => this.setDependentLastName(e)} placeholder="Depenedent Last Name" />
                 </FormGroup>
                 <FormGroup>
-                    <ButtonToggle color="success" disabled={!this.state.isDirty} onClick={() => this.saveDependent(this.props.i)}>Save</ButtonToggle>{' '}
-                    <ButtonToggle color="danger" onClick={() => this.removeDependent(this.props.i)}>Remove Dependent</ButtonToggle>{' '}
+                    <ButtonToggle color="success" disabled={!this.state.isDirty} onClick={() => this.saveDependent(i)}>Save</ButtonToggle>{' '}
+                    <ButtonToggle color="danger" onClick={() => this.removeDependent(i)}>Remove Dependent</ButtonToggle>{' '}
                 </FormGroup>
             </div>
         );
